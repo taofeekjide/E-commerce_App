@@ -8,14 +8,16 @@ export default function LatestCollection() {
   const [latestProducts, setLatestProducts] = useState([]);
 
   useEffect(() => {
+  if (products?.length) {
     setLatestProducts(products.slice(0, 10));
-  }, []);
+  }
+}, [products]);
 
   return (
     <div className="my-10">
       <div className="text-center py-8 text-3xl">
         <Title text1={"Latest"} text2={"Collections"} />
-        <p className="w-3/4 m-auto text-xs sm:text sm:text-sm md:text-base text-gray-600">
+        <p className="w-3/4 m-auto text-xs sm:text-sm md:text-base text-gray-600">
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo
           natus, porro excepturi recusandae adipisci dignissimos odio voluptas,
           quibusdam, provident rem nihil minus rerum! Minima tempora cum dolorem
@@ -25,9 +27,9 @@ export default function LatestCollection() {
 
       {/* Render products */}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 gap-y-6">
-        {latestProducts.map((item, index) => (
+        {latestProducts.map((item) => (
           <ProductItem
-            key={index}
+            key={item._id}
             id={item._id}
             image={item.image}
             name={item.name}
