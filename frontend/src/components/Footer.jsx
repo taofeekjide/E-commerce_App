@@ -26,7 +26,7 @@ export default function Footer() {
             <li>Facebook</li>
             <li>Instagram</li>
             <li>X</li>
-            <li>+234-80-345-678-90</li>
+            <li>+234-90-615-754-32</li>
           </ul>
         </div>
       </div>
