@@ -1,17 +1,20 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import logo from "../assets/Logo.jpg";
-import {ChevronLeft, Menu, Search, ShoppingCart, User } from "lucide-react";
+import { ChevronLeft, Menu, Search, ShoppingCart, User } from "lucide-react";
+import { ShopContext } from "../context/ShopContext";
 
 export default function Navbar() {
   const [visible, setVisible] = useState(false);
 
+  const { setShowSearch } = useContext(ShopContext);
+
   return (
     <div className="flex items-center justify-between py-5 font-medium">
-      <Link to={'/'} >
-      <img src={logo} alt="Logo" className="w-12" />
+      <Link to={"/"}>
+        <img src={logo} alt="Logo" className="w-12" />
       </Link>
-      
+
       <ul className="hidden sm:flex gap-5 text-sm text-gray-700">
         <NavLink
           to="/"
@@ -62,7 +65,10 @@ export default function Navbar() {
         </NavLink>
       </ul>
       <div className="flex items-center gap-6">
-        <Search className="w-5 cursor-pointer" />
+        <Search
+          onClick={() => setShowSearch(true)}
+          className="w-5 cursor-pointer"
+        />
         <div className="group relative">
           <User className="w-5 cursor-pointer" />
           <div className="group-hover:block hidden absolute dropdown-menu right-0 pt-4">

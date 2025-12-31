@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
-import { ShopContext } from "../context/shopContext";
+import { ShopContext } from "../context/ShopContext";
 import { ArrowDownCircle } from "lucide-react";
 import Title from "../components/Title";
 import ProductItem from "../components/ProductItem";
 
 export default function Collection() {
-  const { products } = useContext(ShopContext);
+  const { products, search, showSearch } = useContext(ShopContext);
   const [showFilter, setShowFilter] = useState(false);
   const [filterProducts, setFilterProducts] = useState([]);
   const [category, setCategory] = useState([]);
@@ -31,6 +31,12 @@ export default function Collection() {
   function applyFilter() {
     let productsCopy = products.slice();
 
+    if (showSearch && search) {
+      productsCopy = productsCopy.filter((item) =>
+        item.name.toLowerCase().includes(search.toLowerCase())
+      );
+    }
+
     if (category.length > 0) {
       productsCopy = productsCopy.filter((item) =>
         category.includes(item.category)
@@ -51,11 +57,11 @@ export default function Collection() {
 
     switch (sortType) {
       case "low-high":
-        setFilterProducts(fpCopy.sort((a, b) => a.price - b.price));
+        setFilterProducts([...fpCopy].sort((a, b) => a.price - b.price));
         break;
 
       case "high-low":
-        setFilterProducts(fpCopy.sort((a, b) => b.price - a.price));
+        setFilterProducts([...fpCopy].sort((a, b) => b.price - a.price));
         break;
 
       default:
@@ -65,8 +71,10 @@ export default function Collection() {
   }
 
   useEffect(() => {
-    applyFilter();
-  }, [category, subCategory]);
+    if (products?.length) {
+      applyFilter();
+    }
+  }, [products, category, subCategory, search, showSearch]);
 
   useEffect(() => {
     sortProduct();
@@ -167,7 +175,7 @@ export default function Collection() {
           <Title text1={"All"} text2={"Collections"} />
           {/* Product Sorting */}
           <select
-            onChange={() => setSortType(e.target.value)}
+            onChange={(e) => setSortType(e.target.value)}
             className="border-2 border-gray-300 text-sm px-2"
           >
             <option value="relevant">Sort by Relevance</option>
