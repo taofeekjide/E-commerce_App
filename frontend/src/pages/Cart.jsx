@@ -4,7 +4,8 @@ import Title from "../components/Title";
 import { Trash2 } from "lucide-react";
 
 export default function Cart() {
-  const { products, currency, cartItems, updateQuantity } = useContext(ShopContext);
+  const { products, currency, cartItems, updateQuantity } =
+    useContext(ShopContext);
 
   const [cartData, setCartData] = useState([]);
 
@@ -62,12 +63,24 @@ export default function Cart() {
                 </div>
               </div>
               <input
+                onChange={(e) =>
+                  e.target.value === "" || e.target.value === "0"
+                    ? null
+                    : updateQuantity(
+                        item._id,
+                        item.size,
+                        Number(e.target.value)
+                      )
+                }
                 className="border max-w-10 sm:max-w-20 px-1 sm:px-2 py-1"
                 type="number"
                 min={1}
                 defaultValue={item.quantity}
               />
-              <Trash2 onClick={() => updateQuantity(item._id, item.size, 0)} className="w-4 mr-4 sm:w-5 cursor-pointer" />
+              <Trash2
+                onClick={() => updateQuantity(item._id, item.size, 0)}
+                className="w-4 mr-4 sm:w-5 cursor-pointer"
+              />
             </div>
           );
         })}
