@@ -101,9 +101,9 @@ export default function Collection() {
         >
           <p className="mb-3 text-sm font-medium">Categories</p>
           <div className="flex flex-col gap-2 text-sm font-light text-gray-700">
-            <p className="flex gap-2">
+            <p className="flex gap-2 ">
               <input
-                className="w-3"
+                className="w-3 accent-purple-600"
                 type="checkbox"
                 value={"Men"}
                 onChange={toggleCategory}
@@ -112,7 +112,7 @@ export default function Collection() {
             </p>
             <p className="flex gap-2">
               <input
-                className="w-3"
+                className="w-3 accent-purple-600"
                 type="checkbox"
                 value={"Women"}
                 onChange={toggleCategory}
@@ -121,7 +121,7 @@ export default function Collection() {
             </p>
             <p className="flex gap-2">
               <input
-                className="w-3"
+                className="w-3 accent-purple-600"
                 type="checkbox"
                 value={"Kids"}
                 onChange={toggleCategory}
@@ -140,7 +140,7 @@ export default function Collection() {
           <div className="flex flex-col gap-2 text-sm font-light text-gray-700">
             <p className="flex gap-2">
               <input
-                className="w-3"
+                className="w-3 accent-purple-600"
                 type="checkbox"
                 value={"T-Shirt"}
                 onChange={toggleSubCategory}
@@ -149,7 +149,7 @@ export default function Collection() {
             </p>
             <p className="flex gap-2">
               <input
-                className="w-3"
+                className="w-3 accent-purple-600"
                 type="checkbox"
                 value={"Shorts"}
                 onChange={toggleSubCategory}
@@ -158,7 +158,7 @@ export default function Collection() {
             </p>
             <p className="flex gap-2">
               <input
-                className="w-3"
+                className="w-3 accent-purple-600"
                 type="checkbox"
                 value={"Trousers"}
                 onChange={toggleSubCategory}

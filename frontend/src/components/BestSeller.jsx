@@ -9,32 +9,38 @@ export default function BestSeller() {
 
   useEffect(() => {
     if (products?.length) {
-      const bestProduct = products.filter((item) => item.bestSeller);
+      const bestProduct = products.filter(item => item.bestSeller);
       setBestSeller(bestProduct.slice(0, 5));
     }
   }, [products]);
 
   return (
-    <div className="my-10">
-      <div className="text-center text-3xl py-8">
-        <Title text1={"Best"} text2={"Sellers"} />
-        <p className="w-3/4 m-auto text-xs sm:text-sm md:text-base text-gray-600">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur
-          eos asperiores consequuntur illum aut architecto porro, culpa mollitia
-          a cum saepe beatae nemo in minima dicta exercitationem nihil ea eaque.
-        </p>
+    <section className="bg-[#FFFDF8] py-16">
+      <div className="max-w-7xl mx-auto px-4">
+
+        {/* Title */}
+        <div className="text-center mb-12">
+          <Title text1="Best" text2="Sellers" />
+          <p className="mt-4 max-w-2xl mx-auto text-sm md:text-base text-gray-600">
+            Our most loved products, hand-picked by customers for quality,
+            comfort, and style.
+          </p>
+        </div>
+
+        {/* Products */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+          {bestSeller.map(item => (
+            <ProductItem
+              key={item._id}
+              id={item._id}
+              name={item.name}
+              image={item.image}
+              price={item.price}
+            />
+          ))}
+        </div>
+
       </div>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 gap-y-6">
-        {bestSeller.map((item) => (
-          <ProductItem
-            key={item._id}
-            id={item._id}
-            name={item.name}
-            image={item.image}
-            price={item.price}
-          />
-        ))}
-      </div>
-    </div>
+    </section>
   );
 }

@@ -11,13 +11,13 @@ export default function Product() {
   const [image, setImage] = useState("");
   const [size, setSize] = useState("");
 
-  async function fetchProductData() {
+  function fetchProductData() {
     products.map((item) => {
       if (item._id === productId) {
         setProductData(item);
         setImage(item.image[0]);
-        return null;
       }
+      return null;
     });
   }
 
@@ -26,104 +26,127 @@ export default function Product() {
   }, [productId, products]);
 
   return productData ? (
-    <div className="border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100">
-      {/* Product Data */}
-      <div className="flex gap-12 sm:gap-12 flex-col sm:flex-row">
-        {/* Product images */}
-        <div className="flex-1 flex flex-col-reverse gap-3 sm:flex-row">
-          <div className="flex sm:flex-col overflow-x-auto sm:overflow-y-scroll justify-between sm:justify-normal sm:w-[18.7%] w-full">
+    <div className="border-t border-black/10 pt-12 bg-[#FFF6EC]">
+      {/* Product Section */}
+      <div className="flex flex-col lg:flex-row gap-14">
+        {/* Images */}
+        <div className="flex-1 flex flex-col-reverse lg:flex-row gap-5">
+          <div className="flex lg:flex-col gap-3 overflow-x-auto lg:w-[20%]">
             {productData.image.map((item, index) => (
               <img
-                onClick={() => setImage(item)}
-                src={item}
                 key={index}
-                className="w-[24%] sm:w-full sm:mb-3 flex-shrink-0 cursor-pointer "
+                src={item}
+                onClick={() => setImage(item)}
+                className={`w-20 h-20 object-cover rounded-lg cursor-pointer border transition ${
+                  image === item
+                    ? "border-purple-600"
+                    : "border-black/10 hover:border-purple-400"
+                }`}
                 alt=""
               />
             ))}
           </div>
-          <div className="w-full sm:w-[80%]">
-            <img src={image} alt="" className="w-full h-auto object-cover" />
+
+          <div className="flex-1 bg-white rounded-2xl p-5 border border-black/10">
+            <img
+              src={image}
+              className="w-full h-auto object-cover rounded-xl"
+              alt=""
+            />
           </div>
         </div>
-        {/* Product Details */}
+
+        {/* Product Info */}
         <div className="flex-1">
-          <h1 className="font-medium text-2xl mt-2">{productData.name}</h1>
-          <div className="flex items-center gap-1 mt-2">
-            <Star className="w-3.5" />
-            <Star className="w-3.5" />
-            <Star className="w-3.5" />
-            <Star className="w-3.5" />
-            <StarHalf className="w-3.5" />
-            <p className="pl-2">(122)</p>
+          <h1 className="text-3xl font-semibold text-black">
+            {productData.name}
+          </h1>
+
+          <div className="flex items-center gap-1 mt-3 text-purple-600">
+            <Star className="w-4" />
+            <Star className="w-4" />
+            <Star className="w-4" />
+            <Star className="w-4" />
+            <StarHalf className="w-4" />
+            <span className="text-black/60 text-sm ml-2">(122 reviews)</span>
           </div>
-          <p className="mt-5 text-3xl font-medium">
+
+          <p className="mt-6 text-3xl font-bold text-black">
             {currency}
-            {productData.price}{" "}
+            {productData.price}
           </p>
-          <p className="mt-5 text-gray-500 md:w-4/5">
-            {" "}
-            {productData.description}{" "}
+
+          <p className="mt-6 text-black/70 leading-relaxed">
+            {productData.description}
           </p>
-          <div className="flex flex-col gap-4 my-8">
-            <p>Select Size</p>
-            <div className="flex gap-2">
+
+          {/* Size Selector */}
+          <div className="mt-8">
+            <p className="font-medium mb-3 text-black">Select Size</p>
+            <div className="flex gap-3 flex-wrap">
               {productData.sizes.map((item, index) => (
                 <button
-                  onClick={() => setSize(item)}
-                  className={`border py-2 px-4 bg-gray-100 ${
-                    item === size ? "border-orange-500" : ""
-                  }`}
                   key={index}
+                  onClick={() => setSize(item)}
+                  className={`px-4 py-2 rounded-md text-sm border transition ${
+                    size === item
+                      ? "bg-purple-600 text-white border-purple-600"
+                      : "border-black/20 text-black hover:border-purple-500"
+                  }`}
                 >
                   {item}
                 </button>
               ))}
             </div>
           </div>
+
+          {/* Add to cart */}
           <button
-            onClick={() => addToCart(productData._id, size) }
-            className="bg-black text-white px-8 py-3 text-sm active:bg-gray-700"
+            onClick={() => addToCart(productData._id, size)}
+            className="mt-10 bg-black text-white px-12 py-4 rounded-lg text-sm hover:bg-purple-700 transition"
           >
-            {" "}
-            Add To Cart
+            Add to Cart
           </button>
-          <hr className="mt-8 sm:w-4/5" />
-          <div className="text-sm text-gray-500 mt-5 flex flex-col gap-1">
-            <p>100% Original Product</p>
-            <p>Cash On Delivery is not available</p>
-            <p>Easy return and exchange policy within 24hrs</p>
+
+          {/* Info */}
+          <div className="mt-8 text-sm text-black/60 space-y-1">
+            <p>✔ 100% Original Product</p>
+            <p>✔ Easy exchange within 24hrs</p>
+            <p>✖ Cash on delivery not available</p>
           </div>
         </div>
       </div>
-      {/* Description and Review */}
-      <div className="mt-20">
-        <div className="flex">
-          <b className="border px-5 py-3 text-sm">Description</b>
-          <p className="border px-5 py-3 text-sm"> Reviews (122)</p>
+
+      {/* Description & Reviews */}
+      <div className="mt-24">
+        <div className="flex border-b border-black/10">
+          <button className="px-6 py-3 font-medium border-b-2 border-purple-600 text-black">
+            Description
+          </button>
+          <button className="px-6 py-3 text-black/50">
+            Reviews (122)
+          </button>
         </div>
-        <div className="flex flex-col gap-4 border px-6 py-6 text-sm text-gray-500">
+
+        <div className="mt-6 text-black/70 text-sm space-y-4 leading-relaxed max-w-4xl">
           <p>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Recusandae
-            similique hic maiores minus ipsum neque, mollitia ratione in aut
-            pariatur autem, voluptas magnam voluptatibus amet est veniam
-            repellendus tenetur rerum?
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus
+            suscipit totam deserunt quidem explicabo.
           </p>
           <p>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Totam
-            perspiciatis eum debitis temporibus nobis? Reprehenderit magni
-            ducimus doloribus, porro sapiente nesciunt quidem, ea nobis id nam
-            vitae dolores explicabo ad.
+            Totam perspiciatis eum debitis temporibus nobis. Reprehenderit magni
+            ducimus doloribus porro sapiente.
           </p>
         </div>
       </div>
-      {/* Display Related Products */}
+
+      {/* Related Products */}
       <RelatedProducts
         category={productData.category}
         subCategory={productData.subCategory}
       />
     </div>
   ) : (
-    <div className="opacity-0"></div>
+    <div className="h-[60vh]" />
   );
 }

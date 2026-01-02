@@ -27,11 +27,14 @@ export default function Cart() {
   }, [cartItems]);
 
   return (
-    <div className="border-t pt-14">
-      <div className="text-2xl mb-3">
+    <div className="border-t pt-16">
+      {/* Title */}
+      <div className="text-2xl mb-6">
         <Title text1={"Your"} text2={"Cart"} />
       </div>
-      <div>
+
+      {/* Cart Items */}
+      <div className="space-y-4">
         {cartData.map((item, index) => {
           const productData = products.find(
             (product) => product._id === item._id
@@ -40,29 +43,34 @@ export default function Cart() {
           return (
             <div
               key={index}
-              className="py-4 border-t border-b text-gray-700 grid grid-cols-[4fr_0.5fr_0.5fr] sm:grid-cols-[4fr_2fr_0.5fr] items-center gap-4 "
+              className="bg-[#FFF6EC] border border-black/10 rounded-xl p-4 grid grid-cols-[4fr_1fr_0.5fr] sm:grid-cols-[4fr_2fr_0.5fr] items-center gap-4"
             >
-              <div className="flex items-start gap-6">
+              {/* Product */}
+              <div className="flex items-start gap-5">
                 <img
-                  className="w-16 sm:w-20"
+                  className="w-16 sm:w-20 rounded-lg border border-black/10"
                   src={productData.image[0]}
                   alt=""
                 />
                 <div>
-                  <p className="text-xs sm:text-lg font-medium">
+                  <p className="text-sm sm:text-lg font-medium text-black">
                     {productData.name}
                   </p>
-                  <div className="flex items-center gap-5 mt-2">
-                    <p>
+
+                  <div className="flex items-center gap-4 mt-2 text-sm">
+                    <p className="font-medium">
                       {currency}
                       {productData.price}
                     </p>
-                    <p className="px-2 sm:px-3 sm:py-3 border bg-slate-50">
+
+                    <span className="px-3 py-1 rounded-full bg-purple-100 text-purple-700 text-xs font-medium">
                       {item.size}
-                    </p>
+                    </span>
                   </div>
                 </div>
               </div>
+
+              {/* Quantity */}
               <input
                 onChange={(e) =>
                   e.target.value === "" || e.target.value === "0"
@@ -73,25 +81,33 @@ export default function Cart() {
                         Number(e.target.value)
                       )
                 }
-                className="border max-w-10 sm:max-w-20 px-1 sm:px-2 py-1"
+                className="border border-black/20 rounded-md text-center py-1 w-14 sm:w-20 focus:outline-none focus:border-purple-600"
                 type="number"
                 min={1}
                 defaultValue={item.quantity}
               />
+
+              {/* Remove */}
               <Trash2
                 onClick={() => updateQuantity(item._id, item.size, 0)}
-                className="w-4 mr-4 sm:w-5 cursor-pointer"
+                className="w-5 cursor-pointer text-black/60 hover:text-purple-600 transition"
               />
             </div>
           );
         })}
       </div>
+
+      {/* Cart Total */}
       <div className="flex justify-end my-20">
-        <div className="w-full sm:w-[450px]">
+        <div className="w-full sm:w-[460px]">
           <CartTotal />
+
           <div className="w-full text-end">
-            <button onClick={() => navigate('/place-order')} className="bg-black text-white text-sm my-8 px-8 py-3">
-              CheckOut
+            <button
+              onClick={() => navigate("/place-order")}
+              className="bg-black text-white text-sm mt-8 px-10 py-4 rounded-md hover:bg-purple-700 transition"
+            >
+              Proceed to Checkout
             </button>
           </div>
         </div>
