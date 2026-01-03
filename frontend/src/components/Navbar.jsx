@@ -57,7 +57,9 @@ export default function Navbar() {
 
           {/* User dropdown */}
           <div className="relative group">
-            <User className="w-5 cursor-pointer text-gray-700 hover:text-purple-600 transition" />
+            <Link to={'/login'}>
+            <User className="w-5 cursor-pointer text-gray-700 hover:text-purple-600 transition" /></Link>
+            
             <div className="absolute right-0 pt-3 hidden group-hover:block">
               <div className="bg-white border rounded-lg shadow-md w-40 text-sm">
                 <p className="px-4 py-3 hover:bg-gray-50 cursor-pointer">
